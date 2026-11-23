@@ -38,8 +38,10 @@
     x-data="{
         isOpen: false,
         activeProject: null,
+        currentImageIndex: 0,
         openModal(project) {
             this.activeProject = project;
+            this.currentImageIndex = 0;
             this.isOpen = true;
             document.body.classList.add('overflow-hidden');
         },
@@ -49,11 +51,25 @@
             setTimeout(() => {
                 if (!this.isOpen) {
                     this.activeProject = null;
+                    this.currentImageIndex = 0;
                 }
             }, 300);
+        },
+        nextImage() {
+            if (!this.activeProject || !this.activeProject.images || this.activeProject.images.length <= 1) return;
+            this.currentImageIndex = (this.currentImageIndex + 1) % this.activeProject.images.length;
+        },
+        prevImage() {
+            if (!this.activeProject || !this.activeProject.images || this.activeProject.images.length <= 1) return;
+            this.currentImageIndex = (this.currentImageIndex - 1 + this.activeProject.images.length) % this.activeProject.images.length;
+        },
+        setCurrentImage(index) {
+            this.currentImageIndex = index;
         }
     }"
     @keydown.escape.window="closeModal()"
+    @keydown.arrow-right.window="if (isOpen) nextImage()"
+    @keydown.arrow-left.window="if (isOpen) prevImage()"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -64,12 +80,17 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($projects as $project)
                 @php
+                    $allImageUrls = $project->all_image_urls;
+                    $imageCount = count($allImageUrls);
+                    $firstImageUrl = $project->first_image_url;
+
                     $projectData = [
                         'title' => $project->title,
                         'category' => $project->category,
                         'description' => $project->description,
                         'tech_stack' => is_array($project->tech_stack) ? $project->tech_stack : [],
-                        'image_url' => $project->image_path ? asset('storage/' . $project->image_path) : null,
+                        'images' => $allImageUrls,
+                        'image_url' => $firstImageUrl,
                         'url_link' => $project->url_link,
                     ];
                 @endphp
@@ -77,8 +98,8 @@
                      class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col">
                     <!-- Image Placeholder / Real Image -->
                     <div class="h-48 bg-gray-200 w-full relative flex items-center justify-center overflow-hidden">
-                        @if($project->image_path)
-                            <img src="{{ asset('storage/' . $project->image_path) }}" 
+                        @if($firstImageUrl)
+                            <img src="{{ $firstImageUrl }}" 
                                  alt="{{ $project->title }}" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                                  onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
@@ -86,9 +107,21 @@
                         @else
                             <div class="flex items-center justify-center w-full h-full text-gray-400">No Image</div>
                         @endif
+
+                        <!-- Category Badge -->
                         <span class="absolute top-4 right-4 bg-blue-100/90 backdrop-blur-sm text-blue-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
                             {{ $project->category }}
                         </span>
+
+                        <!-- Badge Jumlah Foto jika lebih dari 1 -->
+                        @if($imageCount > 1)
+                            <span class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1 border border-white/20">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span>{{ $imageCount }} Foto</span>
+                            </span>
+                        @endif
                     </div>
                     
                     <div class="p-6 flex flex-col flex-grow">
@@ -135,7 +168,7 @@
         </div>
     </div>
 
-    <!-- Modal Pop-up Detail Proyek -->
+    <!-- Modal Pop-up Detail Proyek & Galeri Slider -->
     <div 
         x-show="isOpen" 
         x-cloak
@@ -181,21 +214,83 @@
 
             <!-- Modal Body (Scrollable) -->
             <div class="overflow-y-auto p-6 space-y-6">
-                <!-- Gambar Lengkap & Utuh -->
-                <div class="w-full rounded-xl overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center min-h-[200px]">
-                    <template x-if="activeProject?.image_url">
-                        <img 
-                            :src="activeProject.image_url" 
-                            :alt="activeProject.title" 
-                            class="w-full max-h-[60vh] object-contain rounded-xl shadow-inner bg-gray-100"
-                        >
-                    </template>
-                    <template x-if="!activeProject?.image_url">
-                        <div class="flex flex-col items-center justify-center py-16 text-gray-400">
-                            <svg class="w-16 h-16 mb-2 stroke-current opacity-40" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <span class="text-sm font-medium">Tidak ada screenshot yang diunggah</span>
+                <!-- Area Galeri / Image Slider Interaktif -->
+                <div class="space-y-3">
+                    <!-- Tampilan Gambar Utama -->
+                    <div class="w-full rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 relative flex items-center justify-center min-h-[220px] select-none">
+                        <!-- Jika Ada Gambar -->
+                        <template x-if="activeProject?.images && activeProject.images.length > 0">
+                            <div class="w-full relative flex items-center justify-center">
+                                <img 
+                                    :src="activeProject.images[currentImageIndex]" 
+                                    :alt="activeProject.title" 
+                                    class="w-full max-h-[55vh] object-contain rounded-xl bg-gray-100 transition-opacity duration-200"
+                                >
+
+                                <!-- Indikator Nomor Foto (jika > 1 gambar) -->
+                                <template x-if="activeProject.images.length > 1">
+                                    <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow border border-white/10">
+                                        <span x-text="(currentImageIndex + 1) + ' / ' + activeProject.images.length"></span>
+                                    </div>
+                                </template>
+
+                                <!-- Tombol Navigasi Sebelumnya (<) -->
+                                <template x-if="activeProject.images.length > 1">
+                                    <button 
+                                        type="button" 
+                                        @click.stop="prevImage()" 
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/75 text-white p-2.5 rounded-full transition shadow-lg backdrop-blur-sm focus:outline-none"
+                                        aria-label="Foto Sebelumnya"
+                                        title="Foto Sebelumnya (Panah Kiri)"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                    </button>
+                                </template>
+
+                                <!-- Tombol Navigasi Berikutnya (>) -->
+                                <template x-if="activeProject.images.length > 1">
+                                    <button 
+                                        type="button" 
+                                        @click.stop="nextImage()" 
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/75 text-white p-2.5 rounded-full transition shadow-lg backdrop-blur-sm focus:outline-none"
+                                        aria-label="Foto Berikutnya"
+                                        title="Foto Berikutnya (Panah Kanan)"
+                                    >
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Placeholder jika tidak ada gambar -->
+                        <template x-if="!activeProject?.images || activeProject.images.length === 0">
+                            <div class="flex flex-col items-center justify-center py-16 text-gray-400">
+                                <svg class="w-16 h-16 mb-2 stroke-current opacity-40" fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-sm font-medium">Tidak ada screenshot yang diunggah</span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Deretan Thumbnail Kecil yang Dapat Diklik (jika > 1 gambar) -->
+                    <template x-if="activeProject?.images && activeProject.images.length > 1">
+                        <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-1">
+                            <template x-for="(img, idx) in activeProject.images" :key="idx">
+                                <button 
+                                    type="button" 
+                                    @click="setCurrentImage(idx)" 
+                                    class="relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all cursor-pointer focus:outline-none"
+                                    :class="currentImageIndex === idx ? 'border-blue-600 ring-2 ring-blue-500/30 scale-105' : 'border-transparent opacity-60 hover:opacity-100 hover:border-gray-300'"
+                                    :title="'Buka foto ke-' + (idx + 1)"
+                                >
+                                    <img :src="img" :alt="'Thumbnail ' + (idx + 1)" class="w-full h-full object-cover">
+                                </button>
+                            </template>
                         </div>
                     </template>
                 </div>
