@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Favicon transparan / tanpa logo -->
+        <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

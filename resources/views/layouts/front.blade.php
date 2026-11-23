@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A2WEB | Jasa Pembuatan Website & Skripsi IT</title>
+    <!-- Favicon transparan / tanpa logo -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ time() }}">
     <!-- Memuat Tailwind CSS melalui Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,6 +23,7 @@
                     <a href="#hero" class="text-gray-600 hover:text-blue-600 transition">Beranda</a>
                     <a href="#portfolio" class="text-gray-600 hover:text-blue-600 transition">Portofolio</a>
                     <a href="#layanan" class="text-gray-600 hover:text-blue-600 transition">Layanan</a>
+                    <a href="#faq" class="text-gray-600 hover:text-blue-600 transition">FAQ</a>
                 </div>
                 <div>
                     <a href="#kontak" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
@@ -28,7 +32,7 @@
                 </div>
             </div>
         </div>
-    </nav>v
+    </nav>
 
     <!-- Konten Utama -->
     <main>

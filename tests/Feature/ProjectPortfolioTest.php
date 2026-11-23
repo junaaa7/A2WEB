@@ -40,6 +40,20 @@ class ProjectPortfolioTest extends TestCase
         $response->assertSee('storage/projects/sample.png');
         $response->assertSee('Mobile App Android');
         $response->assertSee('No Image');
+        $response->assertSee('openModal(');
+        $response->assertSee('Kunjungi Proyek / Live Demo');
+        $response->assertSee('Deskripsi Lengkap');
+    }
+
+    public function test_homepage_displays_faq_section(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertOk();
+        $response->assertSee('Pertanyaan yang Sering Diajukan');
+        $response->assertSee('Berapa lama estimasi pengerjaan website atau sistem skripsi?');
+        $response->assertSee('Apakah saya akan mendapatkan 100% source code dan database?');
+        $response->assertSee('Bagaimana alur dan sistem pembayarannya?');
     }
 
     public function test_admin_can_store_project_with_image(): void
