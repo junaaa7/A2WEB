@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
@@ -20,14 +22,19 @@ class AdminController extends Controller
     }
 
     // --- BAGIAN PORTFOLIO (PROJECTS) ---
-    public function projects()
+    public function projects(): View
     {
         $projects = Project::latest()->get();
 
         return view('admin.projects', compact('projects'));
     }
 
-    public function storeProject(Request $request)
+    public function createProject(): View
+    {
+        return view('admin.projects-create');
+    }
+
+    public function storeProject(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -76,7 +83,7 @@ class AdminController extends Controller
 
         Project::create($validated);
 
-        return back()->with('success', 'Portofolio berhasil ditambahkan!');
+        return redirect()->route('admin.projects.index')->with('success', 'Portofolio berhasil ditambahkan!');
     }
 
     public function editProject(Project $project)

@@ -46,6 +46,15 @@ class ProjectPortfolioTest extends TestCase
         $response->assertSee('2 Foto');
         $response->assertSee('Kunjungi Proyek / Live Demo');
         $response->assertSee('Deskripsi Lengkap');
+        $response->assertSee('portfolio-filter-btn');
+        $response->assertSee("selectServicePackage('Web UMKM / Profil Bisnis')", false);
+        $response->assertSee("selectServicePackage('Web Sistem / E-Commerce')", false);
+        $response->assertSee("selectServicePackage('Joki / Pendampingan Skripsi IT')", false);
+        $response->assertSee('Space Grotesk');
+        $response->assertSee('Plus Jakarta Sans');
+        $response->assertSee('JetBrains Mono');
+        $response->assertSee('Alur Pengerjaan');
+        $response->assertSee('dark-frontend');
     }
 
     public function test_homepage_displays_faq_section(): void
@@ -79,7 +88,7 @@ class ProjectPortfolioTest extends TestCase
             'images' => [$file1, $file2, $file3],
         ]);
 
-        $response->assertRedirect();
+        $response->assertRedirect(route('admin.projects.index'));
         $response->assertSessionHas('success');
 
         $project = Project::where('title', 'Portfolio Multi Image')->first();
@@ -244,7 +253,7 @@ class ProjectPortfolioTest extends TestCase
             'images' => [$gif],
         ]);
 
-        $response->assertRedirect();
+        $response->assertRedirect(route('admin.projects.index'));
         $project = Project::where('title', 'Project with GIF')->first();
         $this->assertNotNull($project);
         $this->assertCount(1, $project->images);
@@ -258,10 +267,91 @@ class ProjectPortfolioTest extends TestCase
             'images' => null,
         ]);
 
-        $responseNoImg->assertRedirect();
+        $responseNoImg->assertRedirect(route('admin.projects.index'));
         $projectNoImg = Project::where('title', 'Project No Images')->first();
         $this->assertNotNull($projectNoImg);
         $this->assertNull($projectNoImg->image_path);
         $this->assertNull($projectNoImg->images);
+    }
+
+    public function test_admin_projects_index_shows_list_without_create_form(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $response = $this->actingAs($user)->get(route('admin.projects.index'));
+
+        $response->assertOk();
+        $response->assertSee('Daftar Portofolio');
+        $response->assertSee('+ Tambah Portofolio Baru');
+        $response->assertSee(route('admin.projects.create'));
+        $response->assertDontSee('projectUploadHandler()');
+        $response->assertDontSee('Simpan Portofolio');
+        $response->assertSee('border-indigo-400');
+    }
+
+    public function test_admin_can_access_create_project_page_and_see_active_nav(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $response = $this->actingAs($user)->get(route('admin.projects.create'));
+
+        $response->assertOk();
+        $response->assertSee('Tambah Portofolio Baru');
+        $response->assertSee(route('admin.projects.index'));
+        $response->assertSee(route('admin.projects.store'));
+        $response->assertSee('enctype="multipart/form-data"', false);
+        $response->assertSee('name="images[]"', false);
+        $response->assertSee('projectUploadHandler()');
+        $response->assertSee('border-indigo-400');
+    }
+
+    public function test_guest_cannot_access_admin_project_pages(): void
+    {
+        $this->get(route('admin.projects.index'))->assertRedirect(route('login'));
+        $this->get(route('admin.projects.create'))->assertRedirect(route('login'));
+    }
+
+    public function test_create_project_validation_failure_preserves_old_input(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $response = $this->actingAs($user)
+            ->from(route('admin.projects.create'))
+            ->post(route('admin.projects.store'), [
+                'title' => 'Judul Tersimpan',
+                'category' => 'E-Commerce',
+                'tech_stack' => 'Laravel',
+                'description' => '',
+            ]);
+
+        $response->assertRedirect(route('admin.projects.create'));
+        $response->assertSessionHasErrors('description');
+        $this->assertSame('Judul Tersimpan', session()->getOldInput('title'));
+    }
+
+    public function test_all_layouts_include_a2web_favicon_tags(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        foreach ([
+            $this->get('/'),
+            $this->get(route('login')),
+            $this->actingAs($user)->get(route('admin.projects.index')),
+        ] as $response) {
+            $response->assertOk();
+            $response->assertSee('favicon-32x32.png');
+            $response->assertSee('favicon-16x16.png');
+            $response->assertSee('favicon.ico');
+            $response->assertSee('apple-touch-icon.png');
+            $response->assertDontSee('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwC');
+        }
     }
 }

@@ -5,3 +5,151 @@
 [x-cloak] {
     display: none !important;
 }
+
+/* Terapkan color-scheme gelap khusus halaman frontend (scrollbar & date picker) tanpa mengubah panel Admin */
+:root.dark-frontend,
+html.dark-frontend {
+    color-scheme: dark;
+}
+
+.font-tech-display {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-tech-body {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-tech-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Animasi rotasi cincin orbital yang sangat pelan dan halus */
+@keyframes orbit-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes orbit-spin-reverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.animate-orbit-slow {
+    animation: orbit-spin 48s linear infinite;
+}
+
+.animate-orbit-reverse {
+    animation: orbit-spin-reverse 64s linear infinite;
+}
+
+/* Navbar scrolled state & ScrollSpy active indicator (hanya frontend) */
+#main-navbar.is-scrolled {
+    background-color: rgba(4, 7, 18, 0.94);
+    border-bottom-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 12px 32px -12px rgba(2, 6, 23, 0.85);
+}
+
+.nav-link.is-active {
+    color: #22d3ee;
+}
+
+.nav-link.is-active::after {
+    width: 100%;
+}
+
+.mobile-nav-link.is-active {
+    color: #67e8f9;
+    background-color: #0e1530;
+}
+
+/* Scroll Reveal System (Anti-Blank: konten tetap tampil bila js-reveal-ready belum aktif) */
+html.js-reveal-ready [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    will-change: opacity, transform;
+}
+
+html.js-reveal-ready [data-reveal="fade"]:not(.is-visible) {
+    transform: none;
+}
+
+html.js-reveal-ready [data-reveal="line-x"]:not(.is-visible) {
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+html.js-reveal-ready [data-reveal]:not(.reveal-done) {
+    transition-property: opacity, transform;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js-reveal-ready [data-reveal].hero-reveal:not(.reveal-done) {
+    transition-duration: 420ms;
+}
+
+@media (min-width: 768px) {
+    html.js-reveal-ready [data-reveal]:not(.is-visible) {
+        transform: translate3d(0, 28px, 0);
+    }
+
+    html.js-reveal-ready [data-reveal="scale"]:not(.is-visible) {
+        transform: translate3d(0, 20px, 0) scale(0.97);
+    }
+
+    html.js-reveal-ready [data-reveal="left"]:not(.is-visible) {
+        transform: translate3d(-24px, 0, 0);
+    }
+
+    html.js-reveal-ready [data-reveal="right"]:not(.is-visible) {
+        transform: translate3d(24px, 0, 0);
+    }
+
+    html.js-reveal-ready [data-reveal="line-x"]:not(.is-visible) {
+        transform: scaleX(0);
+    }
+
+    html.js-reveal-ready [data-reveal]:not(.reveal-done) {
+        transition-duration: 650ms;
+    }
+
+    html.js-reveal-ready [data-reveal].hero-reveal:not(.reveal-done) {
+        transition-duration: 420ms;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.scroll-smooth {
+        scroll-behavior: auto;
+    }
+
+    .animate-orbit-slow,
+    .animate-orbit-reverse {
+        animation: none;
+    }
+
+    html.js-reveal-ready [data-reveal],
+    html.js-reveal-ready [data-reveal]:not(.is-visible),
+    html.js-reveal-ready [data-reveal]:not(.reveal-done) {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    #scroll-progress-bar,
+    #hero-logo-parallax,
+    #back-to-top {
+        transition: none !important;
+    }
+}
