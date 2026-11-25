@@ -7,7 +7,7 @@
 @endphp
 
 <!-- 1. HERO SECTION (SOLID DARK COSMIC NAVY + A2 WEB WATERMARK) -->
-<section id="hero" class="relative overflow-hidden bg-[#060919] scroll-mt-20 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
+<section id="hero" class="relative overflow-hidden bg-[#060919] scroll-mt-20 pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
     <!-- Centerpiece Background Watermark Logo A2 WEB -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden" aria-hidden="true">
         <div id="hero-logo-parallax" class="flex items-center justify-center pointer-events-none">
@@ -19,22 +19,17 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
-            <div data-reveal="up" data-reveal-delay="0" class="hero-reveal inline-flex items-center gap-2 font-tech-mono text-xs uppercase tracking-wider text-cyan-300 border border-cyan-400/25 bg-[#0E1530]/75 px-3.5 py-1.5 rounded-md mb-6">
-                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                <span>// DIGITAL WEB STUDIO &amp; SKRIPSI IT</span>
-            </div>
-
-            <h1 data-reveal="up" data-reveal-delay="65" class="hero-reveal font-tech-display text-3xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight text-[#F8FAFC] leading-tight mb-6 break-words drop-shadow-[0_2px_16px_rgba(6,9,25,0.9)]">
+            <h1 data-reveal="up" data-reveal-delay="0" class="hero-reveal font-tech-display text-3xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight text-[#F8FAFC] leading-tight mb-6 break-words drop-shadow-[0_2px_16px_rgba(6,9,25,0.9)]">
                 Solusi Cerdas Pembuatan Website Profesional
                 &amp; Pendampingan Sistem Skripsi
             </h1>
 
-            <p data-reveal="up" data-reveal-delay="130" class="hero-reveal text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl mx-auto mb-8 drop-shadow-[0_2px_16px_rgba(6,9,25,0.9)]">
+            <p data-reveal="up" data-reveal-delay="65" class="hero-reveal text-base sm:text-lg text-[#94A3B8] leading-relaxed max-w-2xl mx-auto mb-8 drop-shadow-[0_2px_16px_rgba(6,9,25,0.9)]">
                 Membantu UMKM go-digital dengan website modern berarsitektur solid dan membimbing mahasiswa Informatika meraih gelar sarjana lewat sistem skripsi yang terstruktur dan siap diuji.
             </p>
 
             <!-- 2 Tombol CTA -->
-            <div data-reveal="up" data-reveal-delay="195" class="hero-reveal w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div data-reveal="up" data-reveal-delay="130" class="hero-reveal w-full sm:w-auto flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#kontak" class="group w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white px-7 py-3.5 rounded-xl text-base font-semibold shadow-[0_0_24px_-6px_rgba(34,211,238,0.45)] hover:shadow-[0_0_28px_-4px_rgba(34,211,238,0.65)] hover:-translate-y-0.5 transition-all duration-200">
                     <span>Konsultasi Gratis</span>
                     <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,19 +44,14 @@
         </div>
 
         <!-- Circuit Chip Tech Stack Bar (Centered) -->
-        <div data-reveal="up" data-reveal-delay="260" class="hero-reveal mt-14 lg:mt-16 pt-8 border-t border-cyan-500/15 max-w-4xl mx-auto">
-            <div class="flex flex-col items-center justify-center gap-4 text-center">
-                <span class="font-tech-mono text-[11px] uppercase tracking-widest text-slate-400">
-                    // CORE_TECH_STACK
-                </span>
-                <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Laravel 13</span>
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">PHP 8.5</span>
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Tailwind CSS</span>
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">MySQL</span>
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Sistem Informasi</span>
-                    <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">E-Commerce</span>
-                </div>
+        <div data-reveal="up" data-reveal-delay="195" class="hero-reveal mt-12 lg:mt-14 pt-8 border-t border-cyan-500/15 max-w-4xl mx-auto">
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Laravel 13</span>
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">PHP 8.5</span>
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Tailwind CSS</span>
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">MySQL</span>
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">Sistem Informasi</span>
+                <span class="bg-[#0E1530] border border-cyan-500/20 hover:border-cyan-400/60 font-tech-mono text-xs text-cyan-200 px-3.5 py-1.5 rounded-md transition-colors">E-Commerce</span>
             </div>
         </div>
     </div>
@@ -129,10 +119,7 @@
         <!-- Header & Filter Kategori Dark -->
         <div data-reveal="up" class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-12">
             <div>
-                <p class="font-tech-mono text-xs uppercase tracking-[0.14em] text-cyan-400 mb-2">
-                    01 // PROJECT SHOWCASE
-                </p>
-                <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-2">
+                <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-2.5">
                     Karya Pilihan Kami
                 </h2>
                 <p class="text-sm sm:text-base text-[#94A3B8] max-w-xl">
@@ -297,7 +284,6 @@
             <div class="flex items-center justify-between gap-2 px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-800 bg-[#0B1126]/95 backdrop-blur-md sticky top-0 z-10 flex-shrink-0">
                 <div class="flex items-center gap-2.5 min-w-0">
                     <span class="font-tech-mono uppercase tracking-wider text-xs font-medium text-cyan-300 bg-cyan-500/10 border border-cyan-400/30 px-3 py-1 rounded-md truncate" x-text="activeProject?.category"></span>
-                    <span class="font-tech-mono text-xs text-slate-400 hidden sm:inline whitespace-nowrap">// Detail Showcase</span>
                 </div>
                 <button
                     type="button"
@@ -469,10 +455,7 @@
 <section id="proses" class="scroll-mt-20 py-16 md:py-24 bg-[#060919] border-t border-cyan-400/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div data-reveal="up" class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-            <p class="font-tech-mono text-xs uppercase tracking-[0.14em] text-cyan-400 mb-3">
-                02 // WORKFLOW
-            </p>
-            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3">
+            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3.5">
                 Alur Pengerjaan
             </h2>
             <p class="text-sm sm:text-base text-[#94A3B8] leading-relaxed">
@@ -547,10 +530,7 @@
 <section id="layanan" class="scroll-mt-20 py-16 md:py-24 bg-[#0A1026] border-t border-cyan-400/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div data-reveal="up" class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-            <p class="font-tech-mono text-xs uppercase tracking-[0.14em] text-cyan-400 mb-3">
-                03 // PACKAGES &amp; PRICING
-            </p>
-            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3">
+            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3.5">
                 Layanan &amp; Harga
             </h2>
             <p class="text-sm sm:text-base text-[#94A3B8] leading-relaxed">
@@ -562,9 +542,8 @@
             <!-- Paket 1: Web UMKM / Profil Bisnis -->
             <div data-reveal="up" data-reveal-delay="0" class="bg-[#0E1530]/80 backdrop-blur-md rounded-2xl border border-cyan-400/15 hover:border-cyan-400/45 p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between">
                 <div>
-                    <div class="flex items-center justify-between gap-2 mb-4">
-                        <span class="font-tech-mono text-xs uppercase tracking-wider text-cyan-400">PKG // 01</span>
-                        <span class="font-tech-mono text-xs text-slate-400">Min. 7 Hari</span>
+                    <div class="mb-4">
+                        <span class="inline-block font-tech-mono text-xs text-cyan-300 bg-cyan-500/10 border border-cyan-400/20 px-2.5 py-0.5 rounded">Min. 7 Hari</span>
                     </div>
                     <h3 class="font-tech-display text-xl font-bold text-[#F8FAFC] mb-2">Web UMKM / Profil Bisnis</h3>
                     <p class="text-[#94A3B8] text-sm mb-6 leading-relaxed">Cocok untuk memperluas jangkauan digital bisnis Anda.</p>
@@ -614,9 +593,8 @@
                     <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-400/15 blur-2xl pointer-events-none"></div>
 
                     <div class="relative z-10">
-                        <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="font-tech-mono text-xs uppercase tracking-wider text-cyan-300">PKG // 02</span>
-                            <span class="bg-gradient-to-r from-cyan-400 to-purple-500 text-[#040712] font-tech-mono text-[11px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider">
+                        <div class="mb-4">
+                            <span class="inline-block bg-gradient-to-r from-cyan-400 to-purple-500 text-[#040712] font-tech-mono text-[11px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider">
                                 POPULER
                             </span>
                         </div>
@@ -665,9 +643,8 @@
             <!-- Paket 3: Joki / Skripsi IT -->
             <div data-reveal="up" data-reveal-delay="180" class="bg-[#0E1530]/80 backdrop-blur-md rounded-2xl border border-cyan-400/15 hover:border-purple-400/45 p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between">
                 <div>
-                    <div class="flex items-center justify-between gap-2 mb-4">
-                        <span class="font-tech-mono text-xs uppercase tracking-wider text-purple-400">PKG // 03</span>
-                        <span class="font-tech-mono text-xs text-slate-400">Min. 3 Minggu</span>
+                    <div class="mb-4">
+                        <span class="inline-block font-tech-mono text-xs text-purple-300 bg-purple-500/10 border border-purple-400/20 px-2.5 py-0.5 rounded">Min. 3 Minggu</span>
                     </div>
                     <h3 class="font-tech-display text-xl font-bold text-[#F8FAFC] mb-2">Joki / Skripsi IT</h3>
                     <p class="text-[#94A3B8] text-sm mb-6 leading-relaxed">Pendampingan penuh dari perancangan hingga sidang.</p>
@@ -717,10 +694,7 @@
 <section id="faq" class="scroll-mt-20 py-16 md:py-24 bg-[#060919] border-t border-cyan-400/10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div data-reveal="up" class="text-center mb-10 md:mb-14">
-            <p class="font-tech-mono text-xs uppercase tracking-[0.14em] text-cyan-400 mb-3">
-                04 // FAQ
-            </p>
-            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3">
+            <h2 class="font-tech-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-3.5">
                 Pertanyaan yang Sering Diajukan
             </h2>
             <p class="text-sm sm:text-base text-[#94A3B8] max-w-2xl mx-auto leading-relaxed">
@@ -944,10 +918,7 @@
                 <!-- Kolom Kiri: Ajakan Konsultasi & Jaminan -->
                 <div data-reveal="up" data-reveal-delay="0" class="lg:col-span-5 space-y-6">
                     <div>
-                        <p class="font-tech-mono text-xs uppercase tracking-[0.14em] text-cyan-400 mb-3">
-                            05 // PROJECT BRIEF
-                        </p>
-                        <h2 class="font-tech-display text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC] mb-3 leading-snug">
+                        <h2 class="font-tech-display text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC] mb-3.5 leading-snug">
                             Mulai Proyek Anda!
                         </h2>
                         <p class="text-sm sm:text-base text-[#94A3B8] leading-relaxed">

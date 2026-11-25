@@ -43,7 +43,11 @@ class OrderTest extends TestCase
         ]);
         $order = Order::first();
         $this->assertEquals($deadline, $order->deadline_date->format('Y-m-d'));
-        $this->assertTrue(str_starts_with($response->headers->get('Location'), 'https://api.whatsapp.com/send'));
+        $location = $response->headers->get('Location');
+        $this->assertTrue(str_starts_with($location, 'https://api.whatsapp.com/send?phone=6281319233505&text='));
+        $this->assertStringContainsString('A2Web', $location);
+        $this->assertStringNotContainsString('6281234567890', $location);
+        $this->assertStringNotContainsString('Porto', $location);
     }
 
     public function test_order_fails_when_deadline_is_too_early_for_ecommerce(): void

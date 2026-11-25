@@ -288,7 +288,7 @@ class ProjectPortfolioTest extends TestCase
         $response->assertSee(route('admin.projects.create'));
         $response->assertDontSee('projectUploadHandler()');
         $response->assertDontSee('Simpan Portofolio');
-        $response->assertSee('border-indigo-400');
+        $response->assertSee('border-cyan-400');
     }
 
     public function test_admin_can_access_create_project_page_and_see_active_nav(): void
@@ -306,7 +306,52 @@ class ProjectPortfolioTest extends TestCase
         $response->assertSee('enctype="multipart/form-data"', false);
         $response->assertSee('name="images[]"', false);
         $response->assertSee('projectUploadHandler()');
-        $response->assertSee('border-indigo-400');
+        $response->assertSee('border-cyan-400');
+    }
+
+    public function test_admin_auth_and_profile_pages_use_a2web_dark_theme_and_branding(): void
+    {
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $project = Project::create([
+            'title' => 'Sistem Dark Theme',
+            'slug' => 'sistem-dark-theme',
+            'category' => 'Sistem Manajemen',
+            'description' => 'Deskripsi proyek',
+            'tech_stack' => ['Laravel', 'Tailwind'],
+        ]);
+
+        $loginResponse = $this->get(route('login'));
+        $loginResponse->assertOk();
+        $loginResponse->assertSee('dark-theme');
+        $loginResponse->assertSee('A2<span class="text-cyan-400">Web</span>', false);
+        $loginResponse->assertSee('Admin', false);
+        $loginResponse->assertSee('Space Grotesk');
+        $loginResponse->assertSee('Plus Jakarta Sans');
+        $loginResponse->assertDontSee('Porto Juns');
+        $loginResponse->assertDontSee('bg-white');
+
+        foreach ([
+            route('admin.dashboard'),
+            route('admin.projects.index'),
+            route('admin.projects.create'),
+            route('admin.projects.edit', $project),
+            route('admin.orders.index'),
+            route('profile.edit'),
+        ] as $url) {
+            $response = $this->actingAs($user)->get($url);
+            $response->assertOk();
+            $response->assertSee('dark-theme');
+            $response->assertSee('Space Grotesk');
+            $response->assertSee('Plus Jakarta Sans');
+            $response->assertSee('Lihat Website');
+            $response->assertSee('bg-[#060919]', false);
+            $response->assertDontSee('Porto Juns');
+            $response->assertDontSee('bg-white');
+            $response->assertDontSee('bg-gray-100');
+        }
     }
 
     public function test_guest_cannot_access_admin_project_pages(): void

@@ -6,9 +6,11 @@
     display: none !important;
 }
 
-/* Terapkan color-scheme gelap khusus halaman frontend (scrollbar & date picker) tanpa mengubah panel Admin */
+/* Terapkan color-scheme gelap untuk halaman frontend, admin & autentikasi (scrollbar & date picker) */
 :root.dark-frontend,
-html.dark-frontend {
+html.dark-frontend,
+:root.dark-theme,
+html.dark-theme {
     color-scheme: dark;
 }
 

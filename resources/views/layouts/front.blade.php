@@ -181,8 +181,7 @@
             </div>
 
             <div data-reveal="fade" data-reveal-delay="120" class="mt-10 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-                <p>&copy; {{ date('Y') }} A2Web &bull; Porto Juns Web. All rights reserved.</p>
-                <p class="font-tech-mono text-slate-500">Precision Web Studio &bull; Laravel 13</p>
+                <p>&copy; {{ date('Y') }} A2Web &bull; All rights reserved.</p>
             </div>
         </div>
     </footer>

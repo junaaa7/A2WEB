@@ -51,11 +51,11 @@ class FrontController extends Controller
         Order::create($validated);
 
         // 3. Generate Link Direct-to-WhatsApp
-        $adminPhone = '6281234567890'; // TODO: Ganti dengan nomor WhatsApp Anda yang aktif
+        $adminPhone = '6281319233505';
 
         $formattedDeadline = Carbon::parse($validated['deadline_date'])->translatedFormat('d F Y');
 
-        $message = "Halo *Porto Juns*, saya tertarik dengan layanan Anda!\n\n"
+        $message = "Halo *A2Web*, saya tertarik dengan layanan Anda!\n\n"
                  ."*Nama:* {$validated['name']}\n"
                  ."*Layanan:* {$validated['service_category']}\n"
                  ."*Kebutuhan:* {$validated['description']}\n"
